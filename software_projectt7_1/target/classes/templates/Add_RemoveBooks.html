@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>รายการยืมหนังสือของผู้ใช้</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap"
+	rel="stylesheet">
+
+<style>
+/* Your CSS remains unchanged */
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #ffffff;
+	text-align: center;
+	padding: 0;
+	font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
+}
+
+.nav-bar {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.nav-bar button {
+	background-color: #a4f683;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	margin: 0 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.nav-bar .active {
+	background-color: #ffa500;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	margin: 0 5px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-left: 0px;
+}
+
+.container {
+	width: 100%;
+	max-width: 1300px;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+
+h2 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+
+table, th, td {
+	border: 1px solid #d3d3d3;
+}
+
+th {
+	background-color: #ffa500;
+	color: white;
+	padding: 10px;
+}
+
+td {
+	padding: 10px;
+	text-align: center;
+}
+
+.confirm-button {
+	background-color: #ff7f50;
+	color: white;
+	padding: 5px 15px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.confirm-button:hover {
+	background-color: white;
+	color: #ff7f50;
+	border: 2px solid #ff7f50;
+	border: none;
+	text-decoration: none;
+}
+
+.confirm-button2 {
+	background-color: gray;
+	color: white;
+	padding: 5px 15px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.confirm-button2:hover {
+	background-color: white;
+	color: gray;
+	border: 2px solid gray;
+	border: none;
+	text-decoration: none;
+}
+
+.confirm-button3 {
+	background-color: #ff7f50;
+	color: white;
+	padding: 5px 15px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 40px;
+	font-size: 20px;
+	text-decoration: none;
+}
+
+.confirm-button3:hover {
+	background-color: white;
+	color: #ff7f50;
+	border: 2px solid #ff7f50;
+	border: none;
+}
+
+.button_nav {
+	background-color: #a4f683;
+	padding: 10px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: black;
+	margin-right: 5px;
+}
+
+.user-button-container {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-bottom: 0px;
+}
+
+user-button-container {
+	color: #000000;
+	background-color: red;
+}
+
+.user_buttion {
+	border: 2px solid;
+	background-color: #ffffff;
+	color:#ffa328;
+}
+
+.user_buttion:hover {
+	background-color: #ffa328;
+	color: white;
+}
+</style>
+</head>
+<body>
+	<div class="user-button-container">
+		<a class="user_buttion" th:href="@{/}"
+			style="text-decoration: none; border-color:#ffa328; padding: 20px; margin-right: 50px; border-radius: 50%/50%;">Logout</a>
+	</div>
+
+	<div class="nav-bar">
+		<a class="button_nav" th:href="@{/adminList}">การยืม</a> <a
+			class="active">การจัดการหนังสือ</a> <a class="button_nav"
+			th:href="@{/allBook}">รายการหนังสือทั้งหมด</a>
+	</div>
+
+	<div class="container">
+		<h2>รายการหนังสือ</h2>
+
+		<table>
+			<thead>
+				<tr>
+					<th>ลำดับ</th>
+					<th>หมายเลขไอดีหนังสือ</th>
+					<th>ชื่อหนังสือ</th>
+					<th>การแก้ไข/ลบหนังสือ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book, stat : ${listBook}">
+					<td th:text="${stat.index + 1}"></td>
+					<td th:text="${book.bid}"></td>
+					<td th:text="${book.title}"></td>
+					<td><a class="confirm-button"
+						th:href="@{/editBook/{id}(id=${book.bid})}">แก้ไขหนังสือ</a> <a
+						href="#" onclick="return confirmDelete('${book.bid}')"
+						class="confirm-button2">ลบหนังสือ</a>
+
+						<form th:action="@{/delete/{id}(id=${book.bid})}" method="post"
+							style="display: none;" id="delete-form-${book.bid}">
+							<input type="hidden" name="id" th:value="${book.bid}" />
+						</form></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<button class="confirm-button3"
+			onclick="window.location.href='/addDeleteBook'">เพิ่มหนังสือ</button>
+
+	</div>
+
+	<script>
+		function confirmDelete(bookId) {
+			if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบหนังสือเล่มนี้?")) {
+				document.getElementById("delete-form-" + bookId).submit();
+			}
+			return false; // Prevent the default link behavior
+		}
+	</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

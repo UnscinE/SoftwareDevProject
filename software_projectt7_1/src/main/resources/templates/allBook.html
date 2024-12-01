@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>หนังสือทั้งหมด</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap"
+	rel="stylesheet">
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-image:
+		url('https://img.freepik.com/free-vector/old-library-interior-night_107791-26993.jpg?t=st=1726937865~exp=1726941465~hmac=ed27460d89da8ee3f9d28e98941fb6055553106ad2fa15fbaef704453bf27381&w=1380');
+	/* ใส่ที่อยู่ของรูปภาพที่นี่ */
+	background-size: cover; /* ทำให้รูปภาพเต็มหน้าจอ */
+	background-position: center; /* จัดตำแหน่งรูปภาพให้ตรงกลาง */
+	font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
+}
+
+h1 {
+	margin-top: 0px;
+	color: #ffffff;
+	font-size: 55px;
+	text-shadow: 2px 2px 20px rgba(0, 0, 0, 1); /* เงาสีดำเข้ม */
+}
+
+.book-container {
+	display: flex;
+	justify-content: left;
+	flex-wrap: wrap;
+	gap: 20px;
+	padding: 20px;
+	width: 100%;
+	max-width: 1200px;
+}
+
+.book {
+	background-color: #ffffff;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+	width: 150px;
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.book img {
+	width: 100%;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	color: #000000;
+}
+
+.book-title {
+	margin-top: 10px;
+	color: #000000;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.book a {
+	color: black;
+	margin-top: auto;
+}
+
+.user-button-container {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px;
+	margin-top: 0px;
+	margin-bottojm: 0px;
+	padding-bottom: 0px;
+}
+
+user-button-container {
+	color: #000000;
+	background-color: red;
+}
+
+.user_buttion {
+	border: 2px solid;
+	background-color: #ffffff;
+	color:#ffa328;
+}
+
+.user_buttion:hover {
+	background-color: #ffa328;
+	color: white;
+}
+
+/* popup */
+.popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	border: 1px solid #000;
+	padding: 20px;
+	z-index: 9999;
+	border-radius: 20px;
+}
+
+.popup-content {
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.close-popup {
+	display: block;
+	margin-top: 10px;
+	padding: 5px 10px;
+	background-color: #ff3399;
+	color: #fff;
+	border: 1px solid;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.book-container {
+	padding-top: 25px;
+}
+
+.view {
+	margin-top: 15px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	text-decoration: none;
+	padding: 5px;
+	border: 1px solid #ffa328;
+}
+
+.view:hover {
+	border: 1px solid gray;
+	color: #ffffff;
+	background-color: #ffa328;
+}
+.user-button-container{
+
+}
+</style>
+</head>
+<body>
+
+	<!-- User Button -->
+	<div  class="user-button-container">
+		<a class="user_buttion" th:href="@{/}"
+			style="text-decoration: none; padding: 20px; margin-right: 50px; border-radius: 50%/50%;">Logout</a>
+	</div>
+
+
+
+	<!-- Books Section -->
+	<div>
+		<h1>All Books</h1>
+
+	</div>
+
+	<div class="book-container" id="bookContainer">
+		<!-- Books will be loaded here by JavaScript -->
+	</div>
+
+	<!-- Book Fetching Script -->
+	<script>
+        async function fetchBooks() {
+            try {
+                const response = await fetch('/api/books');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const books = await response.json();
+                const bookContainer = document.getElementById('bookContainer');
+
+                bookContainer.innerHTML = books.map(book => `
+                    <div class="book">
+                        <img src="${book.imageUrl || 'https://cdn.pixabay.com/animation/2023/08/11/21/18/21-18-05-265_512.gif'}" alt="${book.title}">
+                        <div class="book-title">${book.title}</div>
+                        <a class="view" href="/book-details/${book.bid}">View</a>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error fetching books:', error);
+            }
+        }
+
+        fetchBooks();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

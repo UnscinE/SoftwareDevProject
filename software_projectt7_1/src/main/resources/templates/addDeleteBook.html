@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="th" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เพิ่ม/ลบหนังสือ</title>
+<style>
+body {
+	font-family: 'Arial', sans-serif;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 40px;
+}
+
+.nav-bar {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.nav-bar button {
+	background-color: #a4f683;
+	padding: 10px 20px;
+	border-radius: 5px;
+	margin: 0 5px;
+	cursor: pointer;
+	font-size: 16px;
+	border: none;
+}
+
+.nav-bar .active {
+	background-color: #ffa500;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	margin: 0 5px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-left: 0px;
+}
+
+.container {
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+	padding-top: 20px;
+	text-align: left;
+}
+
+h2 {
+	font-size: 24px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-size: 16px;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	background-color: #fdd5a7;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.submit-button {
+	background-color: #ffa500;
+	color: white;
+	padding: 10px 20px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+.submit-button:hover {
+	background-color: #ff7f50;
+}
+
+.cancel-button {
+	background-color: #d3d3d3;
+	color: black;
+	padding: 10px 20px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.cancel-button:hover {
+	background-color: #a9a9a9;
+}
+
+.button_nav {
+	background-color: #a4f683;
+	padding: 10px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: black;
+	margin-right: 5px; 
+	display: flex;
+	justify-content: flex-end;
+}
+
+</style>
+</head>
+<body>
+
+
+	<div class="nav-bar">
+		<a class="button_nav" th:href="@{/adminList}">การยืม</a> <a
+			class="active">การจัดการหนังสือ</a> <a class="button_nav"
+			th:href="@{/allBook}">รายการหนังสือทั้งหมด</a>
+
+
+	</div>
+
+	<div class="container">
+		<h2>รายการ เพิ่ม/ลบหนังสือ</h2>
+
+		<form th:action="@{/createBooks}" method="post" th:object="${book}">
+
+			<div class="form-group">
+				<label for="book-name">ชื่อหนังสือ :</label> <input type="text"
+					th:field="*{title}" id="book-name" name="book-name">
+			</div>
+			<div class="form-group">
+				<label for="author">ชื่อผู้เขียน :</label> <input type="text"
+					th:field="*{author}" id="author" name="author">
+			</div>
+			<div class="form-group">
+				<label for="isbn">ISBN :</label> <input type="text"
+					th:field="*{bookdetail.isbn}" id="isbn" name="isbn">
+			</div>
+			<div class="form-group">
+				<label for="image">รูปภาพ :</label> <input type="text"
+					th:field="*{imageUrl}" id="image" name="image">
+			</div>
+			<div class="form-group">
+				<label for="des">เรื่องย่อ :</label> <input type="text"
+					th:field="*{bookdetail.description}" id="des" name="des">
+			</div>
+			<div class="form-group">
+				<label for="publisher">สำนักพิมพ์ :</label> <input type="text"
+					th:field="*{bookdetail.publisher}" id="publisher" name="publisher">
+			</div>
+			<div class="button-container">
+				<button class="submit-button" type="submit">ยืนยัน</button>
+				<button class="cancel-button" type="reset">ยกเลิก</button>
+			</div>
+		</form>
+
+
+	</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

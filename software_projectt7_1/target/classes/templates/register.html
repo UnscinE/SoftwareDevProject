@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบการยืมหนังสือ</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #ededed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	background-image:
+		url('https://img.freepik.com/free-vector/old-library-interior-night_107791-26993.jpg?t=st=1726937865~exp=1726941465~hmac=ed27460d89da8ee3f9d28e98941fb6055553106ad2fa15fbaef704453bf27381&w=1380');
+	/* ใส่ที่อยู่ของรูปภาพที่นี่ */
+	background-size: cover; /* ทำให้รูปภาพเต็มหน้าจอ */
+	background-position: center; /* จัดตำแหน่งรูปภาพให้ตรงกลาง */
+}
+
+.login-container {
+	background-color: white;
+	width: 500px;
+	padding: 40px;
+	border-radius: 10px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="file"],
+	input[type="tel"] {
+	width: 100%;
+	padding: 15px;
+	margin: 10px 0;
+	border: none;
+	border-radius: 5px;
+	background-color: #ededed;
+	color: #3f3f3f;
+	font-size: 16px;
+	box-sizing: border-box;
+}
+
+input[type="text"]::placeholder, input[type="password"]::placeholder,
+	input[type="email"]::placeholder, input[type="file"]::placeholder,
+	input[type="tel"]::placeholder {
+	color: #7e7d7d;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.button {
+	width: 120px;
+	padding: 15px 20px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.button.signin {
+	background-color: #22da19;
+}
+
+.button.signin:hover {
+	background-color: #40b928;
+}
+
+.button.signup {
+	background-color: #f29a22;
+}
+
+.button.signup:hover {
+	background-color: #dc8c1e;
+}
+</style>
+</head>
+<body>
+	<div class="login-container">
+		<h1 style="text-align: center;">ยินดีต้อนรับสู่ระบบการยืมหนังสือ</h1>
+		<br>
+		<form action="#" th:action="@{/createAccount}" th:object="${account}"
+			method="post">
+			<div>
+				<label for="username">Username</label> <input type="text"
+					id="username" th:field="*{name}" name="username"
+					placeholder="Enter your Username" required>
+			</div>
+			<div>
+				<label for="email">Email</label> <input type="email" id="email"
+					th:field="*{emailAddress}" name="email"
+					placeholder="Enter your Email" required><br>
+			</div>
+			<div>
+				<label for="password">Password</label> <input type="password"
+					id="password" th:field="*{password}" name="password"
+					placeholder="Enter your Password" required><br>
+			</div>
+
+			<div>
+				<label for="image">Phone Number</label> <input type="tel" id="image"
+					th:field="*{phoneNumber}" name="Phonenumber"
+					placeholder="Enter your Phone number" required><br>
+			</div>
+
+			<br>
+			<br>
+			<div class="button-container">
+				<button type="submit" class="button signin">SIGN IN</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
